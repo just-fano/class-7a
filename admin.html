@@ -1,352 +1,232 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CLASS 7A | Admin Panel</title>
-
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: #080d19;
-  color: #f4f7ff;
-  font-family: Arial, sans-serif;
-}
-
-:root {
-  --cyan: #38e5ff;
-  --panel: #111b30;
-  --muted: #9baac2;
-}
-
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 240px;
-  background: #0c1425;
-  border-right: 1px solid #253651;
-  padding: 28px 18px;
-}
-
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 40px;
-}
-
-.logo span { color: var(--cyan); }
-
-.sidebar a {
-  display: block;
-  color: var(--muted);
-  padding: 14px;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-  color: var(--cyan);
-  background: #172840;
-}
-
-main {
-  flex: 1;
-  padding: 35px;
-  min-width: 0;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-h1 { font-size: 28px; }
-
-.muted { color: var(--muted); }
-
-.badge {
-  color: var(--cyan);
-  border: 1px solid var(--cyan);
-  padding: 7px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-bottom: 30px;
-}
-
-.card {
-  background: var(--panel);
-  border: 1px solid #273955;
-  padding: 22px;
-  border-radius: 12px;
-  margin-bottom: 22px;
-}
-
-.card h2 {
-  font-size: 18px;
-  margin-bottom: 18px;
-}
-
-.number {
-  color: var(--cyan);
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0 15px;
-  background: #080f20;
-  border: 1px solid #354662;
-  border-radius: 7px;
-  color: white;
-  font: inherit;
-}
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
-button {
-  padding: 11px 17px;
-  background: var(--cyan);
-  color: #07111e;
-  border: none;
-  border-radius: 7px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover { opacity: .8; }
-
-.delete {
-  background: #ff536b;
-  margin-top: 10px;
-}
-
-.item {
-  padding: 15px;
-  border-bottom: 1px solid #293955;
-}
-
-.item p {
-  color: var(--muted);
-  margin-top: 6px;
-  overflow-wrap: anywhere;
-}
-
-.schedule-item {
-  padding: 12px 0;
-  border-bottom: 1px solid #293955;
-}
-
-.schedule-item button {
-  margin-left: 8px;
-}
-
-section { scroll-margin-top: 20px; }
-
-@media(max-width: 750px) {
-  .sidebar { width: 75px; padding: 20px 8px; }
-  .logo { font-size: 12px; text-align: center; }
-  .sidebar a { font-size: 11px; text-align: center; padding: 12px 3px; }
-  main { padding: 20px 12px; }
-  .stats { grid-template-columns: 1fr; }
-  .top { align-items: flex-start; flex-direction: column; }
-  h1 { font-size: 23px; }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cyan:#38e5ff;--panel:#111b30;--muted:#9baac2}
+body{background:#080d19;color:#f4f7ff;font-family:Arial,sans-serif}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:240px;background:#0c1425;border-right:1px solid #253651;padding:28px 18px}
+.logo{font-size:22px;font-weight:bold;margin-bottom:40px}.logo span{color:var(--cyan)}
+.sidebar a{display:block;color:var(--muted);padding:14px;text-decoration:none;border-radius:8px;margin-bottom:8px}
+.sidebar a:hover,.sidebar a.active{color:var(--cyan);background:#172840}
+main{flex:1;padding:35px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}
+h1{font-size:28px}.muted{color:var(--muted)}
+.badge{color:var(--cyan);border:1px solid var(--cyan);padding:7px 12px;border-radius:20px;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:30px}
+.card{background:var(--panel);border:1px solid #273955;padding:22px;border-radius:12px;margin-bottom:22px}
+.card h2{font-size:18px;margin-bottom:18px}
+.number{color:var(--cyan);font-size:30px;font-weight:bold;margin-top:10px}
+input,textarea{width:100%;padding:13px;margin:8px 0 15px;background:#080f20;border:1px solid #354662;border-radius:7px;color:white;font:inherit}
+textarea{min-height:90px;resize:vertical}
+button{padding:11px 17px;background:var(--cyan);color:#07111e;border:none;border-radius:7px;font-weight:bold;cursor:pointer}
+button:hover{opacity:.85}button:disabled{opacity:.5;cursor:not-allowed}
+.delete{background:#ff536b;margin-top:10px}
+.item,.schedule-item{padding:15px;border-bottom:1px solid #293955}
+.item p{color:var(--muted);margin-top:6px;overflow-wrap:anywhere}
+.schedule-item button{margin-left:8px}
+section{scroll-margin-top:20px}
+.status{margin:12px 0;color:var(--muted);font-size:14px;overflow-wrap:anywhere}
+.error{color:#ff8292}.success{color:#74f0b2}
+#dashboardApp{display:none}
+.login-wrap{max-width:440px;margin:7vh auto}
+.login-wrap .card{padding:28px}
+.login-wrap h1{margin-bottom:10px}
+#logoutBtn{background:#ff536b;color:white}
+@media(max-width:750px){.sidebar{width:75px;padding:20px 8px}.logo{font-size:12px;text-align:center}.sidebar a{font-size:11px;text-align:center;padding:12px 3px}main{padding:20px 12px}.stats{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}h1{font-size:23px}}
 </style>
 </head>
-
 <body>
-
-<div class="layout">
-
-<aside class="sidebar">
-  <div class="logo">CLASS <span>7A.</span></div>
-  <a href="#dashboard" class="active">📊 Dashboard</a>
-  <a href="#announcement">📢 Pengumuman</a>
-  <a href="#schedule">📅 Jadwal</a>
-  <a href="index.html">🌐 Website</a>
-</aside>
-
-<main>
-
-<div class="top" id="dashboard">
-  <div>
-    <h1>Admin Dashboard</h1>
-    <p class="muted">Welcome back, Administrator!</p>
-  </div>
-  <span class="badge">● SYSTEM ONLINE</span>
-</div>
-
-<div class="stats">
+<div id="loginView" class="login-wrap">
   <div class="card">
-    <p class="muted">Pengumuman</p>
-    <div class="number" id="totalNews">0</div>
-  </div>
-
-  <div class="card">
-    <p class="muted">Jadwal Pelajaran</p>
-    <div class="number" id="totalSchedule">0</div>
-  </div>
-
-  <div class="card">
-    <p class="muted">Status Sistem</p>
-    <div class="number" style="font-size:20px">ACTIVE</div>
+    <div class="logo">CLASS <span>7A.</span></div>
+    <h1>Admin Login</h1>
+    <p class="muted">Masuk menggunakan akun admin Class 7A.</p>
+    <form id="loginForm">
+      <label for="email">Email admin</label>
+      <input id="email" type="email" autocomplete="username" placeholder="email admin" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="Password" required>
+      <button id="loginBtn" type="submit">Login</button>
+    </form>
+    <p id="loginStatus" class="status" aria-live="polite"></p>
   </div>
 </div>
 
-<section class="card" id="announcement">
-  <h2>📢 Kelola Pengumuman</h2>
-
-  <form id="newsForm">
-    <label>Judul Pengumuman</label>
-    <input id="newsTitle" placeholder="Contoh: Ulangan Matematika" required>
-
-    <label>Isi Pengumuman</label>
-    <textarea id="newsContent" placeholder="Tuliskan informasi..." required></textarea>
-
-    <button type="submit">+ Tambah Pengumuman</button>
-  </form>
-
-  <div id="newsList"></div>
-</section>
-
-<section class="card" id="schedule">
-  <h2>📅 Kelola Jadwal Pelajaran</h2>
-
-  <form id="scheduleForm">
-    <label>Hari</label>
-    <input id="day" placeholder="Contoh: Senin" required>
-
-    <label>Mata Pelajaran</label>
-    <input id="subject" placeholder="Contoh: Matematika" required>
-
-    <button type="submit">+ Tambah Jadwal</button>
-  </form>
-
-  <div id="scheduleList"></div>
-</section>
-
-</main>
+<div id="dashboardApp" class="layout">
+  <aside class="sidebar">
+    <div class="logo">CLASS <span>7A.</span></div>
+    <a href="#dashboard" class="active">📊 Dashboard</a>
+    <a href="#announcement">📢 Pengumuman</a>
+    <a href="#schedule">📅 Jadwal</a>
+    <a href="index.html">🌐 Website</a>
+  </aside>
+  <main>
+    <div class="top" id="dashboard">
+      <div><h1>Admin Dashboard</h1><p class="muted">Welcome back, Administrator!</p></div>
+      <div><span class="badge">● FIREBASE CONNECTED</span> <button id="logoutBtn" type="button">Logout</button></div>
+    </div>
+    <div class="stats">
+      <div class="card"><p class="muted">Pengumuman Online</p><div class="number" id="totalNews">0</div></div>
+      <div class="card"><p class="muted">Jadwal Pelajaran</p><div class="number" id="totalSchedule">0</div></div>
+      <div class="card"><p class="muted">Status Sistem</p><div class="number" style="font-size:20px">ACTIVE</div></div>
+    </div>
+    <section class="card" id="announcement">
+      <h2>📢 Kelola Pengumuman Online</h2>
+      <form id="newsForm">
+        <label for="newsTitle">Judul Pengumuman</label>
+        <input id="newsTitle" placeholder="Contoh: Ulangan Matematika" required maxlength="100">
+        <label for="newsContent">Isi Pengumuman</label>
+        <textarea id="newsContent" placeholder="Tuliskan informasi..." required maxlength="2000"></textarea>
+        <button id="addNewsBtn" type="submit">+ Tambah Pengumuman</button>
+      </form>
+      <p id="newsStatus" class="status" aria-live="polite"></p>
+      <div id="newsList"></div>
+    </section>
+    <section class="card" id="schedule">
+      <h2>📅 Kelola Jadwal Pelajaran (tersimpan di browser ini)</h2>
+      <form id="scheduleForm">
+        <label for="day">Hari</label><input id="day" placeholder="Contoh: Senin" required>
+        <label for="subject">Mata Pelajaran</label><input id="subject" placeholder="Contoh: Matematika" required>
+        <button type="submit">+ Tambah Jadwal</button>
+      </form>
+      <div id="scheduleList"></div>
+    </section>
+  </main>
 </div>
 
-<script>
-let news = JSON.parse(
-  localStorage.getItem("class7a_news") || "[]"
-);
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-let schedules = JSON.parse(
-  localStorage.getItem("class7a_schedule") || "[]"
-);
+const firebaseConfig = {
+  apiKey: "AIzaSyD9hLQWT14oq0fQfDmVGMYkderwv4P97ws",
+  authDomain: "class-7a-d26f5.firebaseapp.com",
+  projectId: "class-7a-d26f5",
+  storageBucket: "class-7a-d26f5.firebasestorage.app",
+  messagingSenderId: "800833541689",
+  appId: "1:800833541689:web:4faca498559c350762dfe8"
+};
 
-function saveData() {
-  localStorage.setItem("class7a_news", JSON.stringify(news));
-  localStorage.setItem("class7a_schedule", JSON.stringify(schedules));
-  render();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const loginView = document.getElementById("loginView");
+const dashboardApp = document.getElementById("dashboardApp");
+const loginStatus = document.getElementById("loginStatus");
+const newsStatus = document.getElementById("newsStatus");
+let stopNewsListener = null;
+
+document.getElementById("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const btn = document.getElementById("loginBtn");
+  btn.disabled = true;
+  loginStatus.className = "status";
+  loginStatus.textContent = "Sedang login...";
+  try {
+    await signInWithEmailAndPassword(auth,
+      document.getElementById("email").value.trim(),
+      document.getElementById("password").value);
+    loginStatus.textContent = "";
+  } catch (error) {
+    loginStatus.className = "status error";
+    loginStatus.textContent = "Login gagal. Periksa email dan password akun admin.";
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (stopNewsListener) { stopNewsListener(); stopNewsListener = null; }
+  if (!user) {
+    loginView.style.display = "block";
+    dashboardApp.style.display = "none";
+    return;
+  }
+  loginView.style.display = "none";
+  dashboardApp.style.display = "flex";
+  const newsQuery = query(collection(db, "announcements"), orderBy("createdAt", "desc"));
+  stopNewsListener = onSnapshot(newsQuery, (snapshot) => {
+    renderNews(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+    newsStatus.className = "status success";
+    newsStatus.textContent = "Pengumuman tersinkron dengan Firebase.";
+  }, (error) => {
+    newsStatus.className = "status error";
+    newsStatus.textContent = "Tidak bisa membaca database. Periksa Firestore Rules dan nama collection.";
+  });
+});
+
+function renderNews(items) {
+  document.getElementById("totalNews").textContent = items.length;
+  const list = document.getElementById("newsList");
+  list.replaceChildren();
+  items.forEach(item => {
+    const box = document.createElement("div"); box.className = "item";
+    const title = document.createElement("strong"); title.textContent = item.title || "(Tanpa judul)";
+    const content = document.createElement("p"); content.textContent = item.content || "";
+    const remove = document.createElement("button"); remove.className = "delete";
+    remove.textContent = "Hapus";
+    remove.addEventListener("click", async () => {
+      if (!confirm("Hapus pengumuman ini?")) return;
+      try { await deleteDoc(doc(db, "announcements", item.id)); }
+      catch { newsStatus.className = "status error"; newsStatus.textContent = "Gagal menghapus. Pastikan akun ini diizinkan oleh Firestore Rules."; }
+    });
+    box.append(title, content, remove); list.appendChild(box);
+  });
 }
 
-function render() {
-  document.getElementById("totalNews").textContent = news.length;
+document.getElementById("newsForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const btn = document.getElementById("addNewsBtn");
+  btn.disabled = true;
+  newsStatus.className = "status";
+  newsStatus.textContent = "Menyimpan pengumuman...";
+  try {
+    await addDoc(collection(db, "announcements"), {
+      title: document.getElementById("newsTitle").value.trim(),
+      content: document.getElementById("newsContent").value.trim(),
+      createdAt: serverTimestamp()
+    });
+    event.target.reset();
+    newsStatus.className = "status success";
+    newsStatus.textContent = "Pengumuman berhasil disimpan dan tersinkron!";
+  } catch (error) {
+    newsStatus.className = "status error";
+    newsStatus.textContent = "Gagal menyimpan. Pastikan email admin pada Firestore Rules sama dengan akun login.";
+  } finally { btn.disabled = false; }
+});
+
+// Jadwal masih menggunakan penyimpanan browser seperti versi awal.
+let schedules = JSON.parse(localStorage.getItem("class7a_schedule") || "[]");
+function renderSchedule() {
   document.getElementById("totalSchedule").textContent = schedules.length;
-
-  const newsList = document.getElementById("newsList");
-  newsList.replaceChildren();
-
-  news.forEach((item, index) => {
-    const box = document.createElement("div");
-    box.className = "item";
-
-    const title = document.createElement("strong");
-    title.textContent = item.title;
-
-    const content = document.createElement("p");
-    content.textContent = item.content;
-
-    const remove = document.createElement("button");
-    remove.className = "delete";
-    remove.textContent = "Hapus";
-    remove.onclick = () => {
-      news.splice(index, 1);
-      saveData();
-    };
-
-    box.append(title, content, remove);
-    newsList.appendChild(box);
-  });
-
-  const scheduleList = document.getElementById("scheduleList");
-  scheduleList.replaceChildren();
-
+  const list = document.getElementById("scheduleList"); list.replaceChildren();
   schedules.forEach((item, index) => {
-    const box = document.createElement("div");
-    box.className = "schedule-item";
-
-    const label = document.createElement("span");
-    label.textContent = item.day + " — " + item.subject;
-
-    const remove = document.createElement("button");
-    remove.className = "delete";
+    const box = document.createElement("div"); box.className = "schedule-item";
+    const label = document.createElement("span"); label.textContent = item.day + " — " + item.subject;
+    const remove = document.createElement("button"); remove.className = "delete";
     remove.textContent = "Hapus";
-    remove.onclick = () => {
+    remove.addEventListener("click", () => {
       schedules.splice(index, 1);
-      saveData();
-    };
-
-    box.append(label, remove);
-    scheduleList.appendChild(box);
+      localStorage.setItem("class7a_schedule", JSON.stringify(schedules));
+      renderSchedule();
+    });
+    box.append(label, remove); list.appendChild(box);
   });
 }
-
-document.getElementById("newsForm").onsubmit = function(event) {
+document.getElementById("scheduleForm").addEventListener("submit", event => {
   event.preventDefault();
-
-  news.push({
-    title: document.getElementById("newsTitle").value,
-    content: document.getElementById("newsContent").value
-  });
-
-  this.reset();
-  saveData();
-};
-
-document.getElementById("scheduleForm").onsubmit = function(event) {
-  event.preventDefault();
-
-  schedules.push({
-    day: document.getElementById("day").value,
-    subject: document.getElementById("subject").value
-  });
-
-  this.reset();
-  saveData();
-};
-
-render();
+  schedules.push({day: document.getElementById("day").value.trim(), subject: document.getElementById("subject").value.trim()});
+  localStorage.setItem("class7a_schedule", JSON.stringify(schedules));
+  event.target.reset(); renderSchedule();
+});
+document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+renderSchedule();
 </script>
-
 </body>
 </html>
