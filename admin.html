@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLASS 7A | Admin Panel</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #080d19;
+  color: #f4f7ff;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --cyan: #38e5ff;
+  --panel: #111b30;
+  --muted: #9baac2;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #0c1425;
+  border-right: 1px solid #253651;
+  padding: 28px 18px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.logo span { color: var(--cyan); }
+
+.sidebar a {
+  display: block;
+  color: var(--muted);
+  padding: 14px;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  color: var(--cyan);
+  background: #172840;
+}
+
+main {
+  flex: 1;
+  padding: 35px;
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+h1 { font-size: 28px; }
+
+.muted { color: var(--muted); }
+
+.badge {
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid #273955;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+.number {
+  color: var(--cyan);
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0 15px;
+  background: #080f20;
+  border: 1px solid #354662;
+  border-radius: 7px;
+  color: white;
+  font: inherit;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+button {
+  padding: 11px 17px;
+  background: var(--cyan);
+  color: #07111e;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover { opacity: .8; }
+
+.delete {
+  background: #ff536b;
+  margin-top: 10px;
+}
+
+.item {
+  padding: 15px;
+  border-bottom: 1px solid #293955;
+}
+
+.item p {
+  color: var(--muted);
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+
+.schedule-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #293955;
+}
+
+.schedule-item button {
+  margin-left: 8px;
+}
+
+section { scroll-margin-top: 20px; }
+
+@media(max-width: 750px) {
+  .sidebar { width: 75px; padding: 20px 8px; }
+  .logo { font-size: 12px; text-align: center; }
+  .sidebar a { font-size: 11px; text-align: center; padding: 12px 3px; }
+  main { padding: 20px 12px; }
+  .stats { grid-template-columns: 1fr; }
+  .top { align-items: flex-start; flex-direction: column; }
+  h1 { font-size: 23px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="logo">CLASS <span>7A.</span></div>
+  <a href="#dashboard" class="active">📊 Dashboard</a>
+  <a href="#announcement">📢 Pengumuman</a>
+  <a href="#schedule">📅 Jadwal</a>
+  <a href="index.html">🌐 Website</a>
+</aside>
+
+<main>
+
+<div class="top" id="dashboard">
+  <div>
+    <h1>Admin Dashboard</h1>
+    <p class="muted">Welcome back, Administrator!</p>
+  </div>
+  <span class="badge">● SYSTEM ONLINE</span>
+</div>
+
+<div class="stats">
+  <div class="card">
+    <p class="muted">Pengumuman</p>
+    <div class="number" id="totalNews">0</div>
+  </div>
+
+  <div class="card">
+    <p class="muted">Jadwal Pelajaran</p>
+    <div class="number" id="totalSchedule">0</div>
+  </div>
+
+  <div class="card">
+    <p class="muted">Status Sistem</p>
+    <div class="number" style="font-size:20px">ACTIVE</div>
+  </div>
+</div>
+
+<section class="card" id="announcement">
+  <h2>📢 Kelola Pengumuman</h2>
+
+  <form id="newsForm">
+    <label>Judul Pengumuman</label>
+    <input id="newsTitle" placeholder="Contoh: Ulangan Matematika" required>
+
+    <label>Isi Pengumuman</label>
+    <textarea id="newsContent" placeholder="Tuliskan informasi..." required></textarea>
+
+    <button type="submit">+ Tambah Pengumuman</button>
+  </form>
+
+  <div id="newsList"></div>
+</section>
+
+<section class="card" id="schedule">
+  <h2>📅 Kelola Jadwal Pelajaran</h2>
+
+  <form id="scheduleForm">
+    <label>Hari</label>
+    <input id="day" placeholder="Contoh: Senin" required>
+
+    <label>Mata Pelajaran</label>
+    <input id="subject" placeholder="Contoh: Matematika" required>
+
+    <button type="submit">+ Tambah Jadwal</button>
+  </form>
+
+  <div id="scheduleList"></div>
+</section>
+
+</main>
+</div>
+
+<script>
+let news = JSON.parse(
+  localStorage.getItem("class7a_news") || "[]"
+);
+
+let schedules = JSON.parse(
+  localStorage.getItem("class7a_schedule") || "[]"
+);
+
+function saveData() {
+  localStorage.setItem("class7a_news", JSON.stringify(news));
+  localStorage.setItem("class7a_schedule", JSON.stringify(schedules));
+  render();
+}
+
+function render() {
+  document.getElementById("totalNews").textContent = news.length;
+  document.getElementById("totalSchedule").textContent = schedules.length;
+
+  const newsList = document.getElementById("newsList");
+  newsList.replaceChildren();
+
+  news.forEach((item, index) => {
+    const box = document.createElement("div");
+    box.className = "item";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+
+    const content = document.createElement("p");
+    content.textContent = item.content;
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Hapus";
+    remove.onclick = () => {
+      news.splice(index, 1);
+      saveData();
+    };
+
+    box.append(title, content, remove);
+    newsList.appendChild(box);
+  });
+
+  const scheduleList = document.getElementById("scheduleList");
+  scheduleList.replaceChildren();
+
+  schedules.forEach((item, index) => {
+    const box = document.createElement("div");
+    box.className = "schedule-item";
+
+    const label = document.createElement("span");
+    label.textContent = item.day + " — " + item.subject;
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Hapus";
+    remove.onclick = () => {
+      schedules.splice(index, 1);
+      saveData();
+    };
+
+    box.append(label, remove);
+    scheduleList.appendChild(box);
+  });
+}
+
+document.getElementById("newsForm").onsubmit = function(event) {
+  event.preventDefault();
+
+  news.push({
+    title: document.getElementById("newsTitle").value,
+    content: document.getElementById("newsContent").value
+  });
+
+  this.reset();
+  saveData();
+};
+
+document.getElementById("scheduleForm").onsubmit = function(event) {
+  event.preventDefault();
+
+  schedules.push({
+    day: document.getElementById("day").value,
+    subject: document.getElementById("subject").value
+  });
+
+  this.reset();
+  saveData();
+};
+
+render();
+</script>
+
+</body>
+</html>

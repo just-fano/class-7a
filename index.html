@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLASS 7A | Digital Class Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080d19;color:#f4f7ff;font-family:Arial,sans-serif}
+:root{--cyan:#38e5ff;--panel:#111b30;--muted:#9baac2}
+nav{display:flex;justify-content:space-between;padding:20px 8%;background:#0b1324;position:sticky;top:0;border-bottom:1px solid #24344d}
+.logo{font-size:23px;font-weight:bold}
+.logo span,h1 span{color:var(--cyan)}
+nav a{color:white;text-decoration:none;margin-left:20px}
+nav a:hover{color:var(--cyan)}
+.hero{min-height:420px;padding:90px 10%;display:flex;align-items:center;background:radial-gradient(circle at 85% 30%,#34317c,transparent 35%),radial-gradient(circle at 10% 90%,#123f62,transparent 40%)}
+.hero small{color:var(--cyan);letter-spacing:4px}
+h1{font-size:clamp(45px,8vw,75px);margin:18px 0}
+.hero p{color:var(--muted);max-width:500px}
+section{padding:65px 9%}
+.heading{font-size:30px;margin-bottom:10px}
+.description{color:var(--muted);margin-bottom:30px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--panel);padding:25px;border:1px solid #273955;border-radius:14px;transition:.3s}
+.card:hover{transform:translateY(-5px);border-color:var(--cyan)}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);font-size:14px}
+.icon{font-size:32px;margin-bottom:12px}
+.highlight{color:var(--cyan)}
+.announcement{background:#0e1729;border-left:3px solid var(--cyan);padding:20px;margin-bottom:12px;border-radius:8px}
+table{width:100%;border-collapse:collapse;background:var(--panel)}
+th,td{padding:16px;text-align:left;border-bottom:1px solid #29354c}
+th{color:var(--cyan)}
+td{color:var(--muted)}
+.button{border:none;background:var(--cyan);color:#07111e;font-weight:bold;padding:12px 20px;border-radius:7px;cursor:pointer;margin-top:15px}
+footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #24344d}
+#clock{color:var(--cyan);margin-top:15px}
+@media(max-width:700px){nav{padding:18px 5%;flex-wrap:wrap;gap:15px}nav div:last-child{display:flex;flex-wrap:wrap;gap:12px}nav a{margin:0}.hero{padding:75px 7%}section{padding:50px 6%}.grid{grid-template-columns:1fr}table{font-size:12px}th,td{padding:10px 7px}}
+</style>
+</head>
+<body>
+<nav>
+<div class="logo">CLASS <span>7A.</span></div>
+<div>
+<a href="#home">Home</a>
+<a href="#kelas">Kelas</a>
+<a href="#jadwal">Jadwal</a>
+<a href="#berita">Info</a>
+</div>
+</nav>
+
+<header class="hero" id="home">
+<div>
+<small>WELCOME TO OUR DIGITAL SPACE</small>
+<h1>WE ARE <span>CLASS 7A.</span></h1>
+<p>Satu kelas, banyak cerita, satu tujuan. Belajar bersama, berkembang bersama, dan menciptakan masa depan.</p>
+<div id="clock"></div>
+</div>
+</header>
+
+<section id="kelas">
+<h2 class="heading">Our Class</h2>
+<p class="description">Kenali lingkungan digital kelas kita.</p>
+<div class="grid">
+<div class="card"><div class="icon">👥</div><h3>Anggota Kelas</h3><p>Tempat mengenal teman-teman CLASS 7A.</p></div>
+<div class="card"><div class="icon">🎓</div><h3>Belajar Bersama</h3><p>Berbagi ilmu dan pengalaman.</p></div>
+<div class="card"><div class="icon">🏆</div><h3>Prestasi</h3><p>Mengabadikan pencapaian kelas.</p></div>
+</div>
+</section>
+
+<section id="jadwal">
+<h2 class="heading">Class Schedule</h2>
+<p class="description">Contoh jadwal pelajaran.</p>
+<table>
+<tr><th>Hari</th><th>Pelajaran</th></tr>
+<tr><td>Senin</td><td>Matematika, Bahasa Indonesia</td></tr>
+<tr><td>Selasa</td><td>IPA, Bahasa Inggris</td></tr>
+<tr><td>Rabu</td><td>IPS, PPKn</td></tr>
+<tr><td>Kamis</td><td>Informatika, Seni Budaya</td></tr>
+<tr><td>Jumat</td><td>PJOK, Pendidikan Agama</td></tr>
+</table>
+</section>
+
+<section id="berita">
+<h2 class="heading">Announcement Center</h2>
+<p class="description">Papan informasi CLASS 7A.</p>
+<div id="newsList"></div>
+<button class="button" onclick="showMessage()">Pesan Hari Ini</button>
+</section>
+
+<section>
+<div class="card">
+<h3 class="highlight">"One Class, One Dream."</h3>
+<p>Berbeda karakter, satu tujuan. Terus belajar dan saling mendukung.</p>
+</div>
+</section>
+
+<footer>© 2026 CLASS 7A — Digital Class Hub.</footer>
+
+<script>
+function updateClock(){
+const now=new Date();
+document.getElementById("clock").textContent=
+now.toLocaleDateString("id-ID")+" | "+now.toLocaleTimeString("id-ID");
+}
+
+function showMessage(){
+alert("Tetap semangat belajar! CLASS 7A pasti bisa! 🚀");
+}
+
+function loadNews(){
+const news=JSON.parse(localStorage.getItem("class7a_news")||"[]");
+const list=document.getElementById("newsList");
+list.replaceChildren();
+
+news.forEach(item=>{
+const box=document.createElement("div");
+box.className="announcement";
+const title=document.createElement("strong");
+title.className="highlight";
+title.textContent="📢 "+item.title;
+const content=document.createElement("p");
+content.textContent=item.content;
+box.append(title,content);
+list.appendChild(box);
+});
+}
+
+updateClock();
+setInterval(updateClock,1000);
+loadNews();
+</script>
+</body>
+</html>
